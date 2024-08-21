@@ -1,0 +1,9 @@
+# ninja log v5
+2	21856	1723706512401950054	/home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda_legacy/csrc/ext.o	be6186d420437a92
+3	21866	1723706832993428492	/home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/ext.o	12427351292b9f00
+12	61846	1723706873106875286	/home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/sh.o	efb8dbd64e7710a6
+4	67520	1723706878783938475	/home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/projection.o	f45095e1d2ba6c77
+14	83937	1723706895177120878	/home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/test.o	1201fc993d17c79f
+23	21737	1723708809604990843	/home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/ext.o	12427351292b9f00
+38	21726	1723710028314342086	/home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/ext.o	12427351292b9f00
+39	132598	1723710139311627735	/home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/rasterization.o	df9cd1feb0c82a70

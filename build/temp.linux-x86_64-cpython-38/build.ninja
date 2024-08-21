@@ -1,0 +1,35 @@
+ninja_required_version = 1.3
+cxx = /home/butian/anaconda3/envs/nerfstudio/bin/x86_64-conda-linux-gnu-c++
+nvcc = /home/butian/anaconda3/envs/nerfstudio/bin/nvcc
+
+cflags = -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /home/butian/anaconda3/envs/nerfstudio/include -fPIC -O2 -isystem /home/butian/anaconda3/envs/nerfstudio/include -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home/butian/anaconda3/envs/nerfstudio/include -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/butian/anaconda3/envs/nerfstudio/include -fPIC -Ifeature_splat/cuda/csrc -I/home/butian/workspace/feature_splat/feature_splat/cuda/csrc/third_party/glm -I/home/butian/anaconda3/envs/nerfstudio/lib/python3.8/site-packages/torch/include -I/home/butian/anaconda3/envs/nerfstudio/lib/python3.8/site-packages/torch/include/torch/csrc/api/include -I/home/butian/anaconda3/envs/nerfstudio/lib/python3.8/site-packages/torch/include/TH -I/home/butian/anaconda3/envs/nerfstudio/lib/python3.8/site-packages/torch/include/THC -I/home/butian/anaconda3/envs/nerfstudio/include -I/home/butian/anaconda3/envs/nerfstudio/include/python3.8 -c
+post_cflags = -O3 -Wno-sign-compare -DAT_PARALLEL_OPENMP -fopenmp -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=csrc -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++17
+cuda_cflags = -Ifeature_splat/cuda/csrc -I/home/butian/workspace/feature_splat/feature_splat/cuda/csrc/third_party/glm -I/home/butian/anaconda3/envs/nerfstudio/lib/python3.8/site-packages/torch/include -I/home/butian/anaconda3/envs/nerfstudio/lib/python3.8/site-packages/torch/include/torch/csrc/api/include -I/home/butian/anaconda3/envs/nerfstudio/lib/python3.8/site-packages/torch/include/TH -I/home/butian/anaconda3/envs/nerfstudio/lib/python3.8/site-packages/torch/include/THC -I/home/butian/anaconda3/envs/nerfstudio/include -I/home/butian/anaconda3/envs/nerfstudio/include/python3.8 -c
+cuda_post_cflags = -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -O3 --use_fast_math --expt-relaxed-constexpr -diag-suppress 20012 -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=csrc -D_GLIBCXX_USE_CXX11_ABI=0 -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 -ccbin /home/butian/anaconda3/envs/nerfstudio/bin/x86_64-conda-linux-gnu-cc -std=c++17
+cuda_dlink_post_cflags = 
+ldflags = 
+
+rule compile
+  command = $cxx -MMD -MF $out.d $cflags -c $in -o $out $post_cflags
+  depfile = $out.d
+  deps = gcc
+
+rule cuda_compile
+  depfile = $out.d
+  deps = gcc
+  command = $nvcc  $cuda_cflags -c $in -o $out $cuda_post_cflags
+
+
+
+
+
+build /home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/ext.o: compile /home/butian/workspace/feature_splat/feature_splat/cuda/csrc/ext.cpp
+build /home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/projection.o: cuda_compile /home/butian/workspace/feature_splat/feature_splat/cuda/csrc/projection.cu
+build /home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/rasterization.o: cuda_compile /home/butian/workspace/feature_splat/feature_splat/cuda/csrc/rasterization.cu
+build /home/butian/workspace/feature_splat/build/temp.linux-x86_64-cpython-38/feature_splat/cuda/csrc/sh.o: cuda_compile /home/butian/workspace/feature_splat/feature_splat/cuda/csrc/sh.cu
+
+
+
+
+
+
